@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTMLの練習</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<select name="lv1" id="lv1Pulldown">
+<option value="0" selected="selected">▼選択</option>
+<option value="1">ファッション</option>
+<option value="2">ドリンク・お酒</option>
+<option value="3">パソコン・周辺機器</option>
+</select>
+
+<select name="lv2" id="lv2Pulldown" disabled="disabled">
+<option value="0">▼選択</option>
+<option value="4" class="p1">バッグ</option>
+<option value="5" class="p1">シューズ</option>
+<option value="6" class="p1">ファッション小物</option>
+<option value="7" class="p2">ワイン</option>
+<option value="8" class="p2">洋酒</option>
+<option value="9" class="p2">焼酎</option>
+<option value="10" class="p3">タブレットPC</option>
+<option value="11" class="p3">ノートPC</option>
+<option value="12" class="p3">デスクトップPC</option>
+</select>
+
+<select name="lv3" id="lv3Pulldown" disabled="disabled">
+<option value="0">▼選択</option>
+<option value="13" class="p4">アタッシュケース</option>
+<option value="14" class="p4">ウエスト、ヒップバッグ</option>
+<option value="15" class="p4">ショルダーバッグ</option>
+<option value="16" class="p5">ビジネスシューズ</option>
+<option value="17" class="p5">ローファー</option>
+<option value="18" class="p5">スニーカー</option>
+<option value="19" class="p6">財布、コインケース</option>
+<option value="20" class="p6">パスケース、定期入れ</option>
+<option value="21" class="p6">名刺入れ</option>
+<option value="22" class="p7">赤ワイン</option>
+<option value="23" class="p7">白ワイン</option>
+<option value="24" class="p7">ロゼワイン</option>
+<option value="25" class="p8">ウィスキー</option>
+<option value="26" class="p8">ブランデー</option>
+<option value="27" class="p8">リキュール</option>
+<option value="28" class="p9">芋焼酎</option>
+<option value="29" class="p9">麦焼酎</option>
+<option value="30" class="p9">米焼酎</option>
+<option value="31" class="p10">Nexus7</option>
+<option value="32" class="p10">iPad</option>
+<option value="33" class="p10">WindowsRT</option>
+<option value="34" class="p11">大型ノート</option>
+<option value="35" class="p11">A4サイズノート</option>
+<option value="36" class="p11">ウルトラブック</option>
+<option value="37" class="p12">モニタ一体型</option>
+<option value="38" class="p12">モニタセパレート型</option>
+<option value="39" class="p12">サーバーマシン</option>
+</select>
+
+<script type="text/javascript">
+$(document).ready(function(){
+ 
+    // プルダウンのoption内容をコピー
+    var pd2 = $("#lv2Pulldown option").clone();
+    var pd3 = $("#lv3Pulldown option").clone();
+ 
+    // 1→2連動
+    $("#lv1Pulldown").change(function () {
+        // lv1のvalue取得
+        var lv1Val = $("#lv1Pulldown").val();
+ 
+        // lv2Pulldownのdisabled解除
+        $("#lv2Pulldown").removeAttr("disabled");
+ 
+        // 一旦、lv2Pulldownのoptionを削除
+        $("#lv2Pulldown option").remove();
+ 
+        // (コピーしていた)元のlv2Pulldownを表示
+        $(pd2).appendTo("#lv2Pulldown");
+ 
+        // 選択値以外のクラスのoptionを削除
+        $("#lv2Pulldown option[class != p"+lv1Val+"]").remove();
+ 
+        // 「▼選択」optionを先頭に表示
+        $("#lv2Pulldown").prepend('<option value="0" selected="selected">▼選択</option>');
+ 
+        // lv3Pulldown disabled処理
+        $("#lv3Pulldown").attr("disabled", "disabled");
+        $("#lv3Pulldown option").remove();
+        $("#lv3Pulldown").prepend('<option value="0" selected="selected">▼選択</option>');
+    });
+ 
+    // 2→3連動
+    $("#lv2Pulldown").change(function () {
+        // lv2のvalue取得
+        var lv2Val = $("#lv2Pulldown").val();
+ 
+        // lv3Pulldownのdisabled解除
+        $("#lv3Pulldown").removeAttr("disabled");
+ 
+        // 一旦、lv3Pulldownのoptionを削除
+        $("#lv3Pulldown option").remove();
+ 
+        // (コピーしていた)元のlv3Pulldownを表示
+        $(pd3).appendTo("#lv3Pulldown");
+ 
+        // 選択値以外のクラスのoptionを削除
+        $("#lv3Pulldown option[class != p"+lv2Val+"]").remove();
+ 
+        // 「▼選択」optionを先頭に表示
+        $("#lv3Pulldown").prepend('<option value="0" selected="selected">▼選択</option>');
+    });
+});
+</script>
+</body>
+</html>
